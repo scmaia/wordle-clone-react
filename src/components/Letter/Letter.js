@@ -2,8 +2,8 @@ import './Letter.scss';
 
 function Letter ( { letter, status } ) {
     return (
-        <div>
-            <p>test</p>
+        <div className='box'>
+            <p className='letter'>A</p>
         </div>
     );
 };

@@ -1,0 +1,36 @@
+@use '../../styles/partials/typography' as *;
+@use '../../styles/partials/global' as *;
+
+.letter {
+    text-transform: uppercase;
+    margin: 0;
+    &--light {
+        color: white;
+    }
+    &--dark {
+        color: black;
+    }
+}
+
+.box {
+    width: 65px;
+    height: 65px;
+    box-sizing: content-box;
+    border: 2px solid #d3d6da;
+
+    &--unknown {
+        border: 1px solid #d3d6da;
+    }
+
+    &--correct {
+
+    }
+
+    &--incorrect {
+
+    }
+
+    &--present {
+
+    }
+}

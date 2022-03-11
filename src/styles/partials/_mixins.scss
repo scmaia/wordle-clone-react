@@ -1,0 +1,21 @@
+@use 'variables' as *;
+
+@mixin tablet {
+    @media (min-width: $tablet-breakpoint) {
+        @content;
+    }
+};
+
+@mixin desktop {
+    @media (min-width: $desktop-breakpoint) {
+        @content;
+    }
+};
+
+@mixin mobile-alignment{
+    padding: 0 5%;
+}
+
+@mixin desktop-alignment{
+    padding: 0 10%;
+}

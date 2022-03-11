@@ -1,10 +1,10 @@
 import './App.css';
-import LetterGrid from "./components/LetterGrid/LetterGrid";
+import Words from "./components/Words/Words";
 
 function App() {
   return (
     <div className="App">
-      <LetterGrid/>
+      <Words/>
     </div>
   );
 }

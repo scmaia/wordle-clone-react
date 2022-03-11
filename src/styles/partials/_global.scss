@@ -1,0 +1,43 @@
+@use 'typography' as *;
+@use 'mixins' as *;
+@use 'colors' as *;
+
+html {
+    font-size: $root-font-size-mobile;
+    font-family: $font-stack;
+    font-weight: 700;
+    line-height: 1.4rem;
+
+    @include tablet {
+        font-size: $root-font-size;
+        line-height: 1.6rem;
+    }
+}
+
+h1 {
+    font-size: 1.9rem;
+    font-weight: 700;
+    line-height: 2.5rem;
+    color: $brainflix-black;
+    @include tablet {
+        font-size: 2.3rem;
+    }
+}
+
+h2 {
+    font-size: 0.9rem;
+    font-weight: 700;
+    line-height: 0.9rem;
+    color: $silver;
+}
+
+h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    line-height: 1.7;
+
+    @include tablet {
+        font-size: 1.7rem;
+        line-height: 2.3rem;
+    }
+}
