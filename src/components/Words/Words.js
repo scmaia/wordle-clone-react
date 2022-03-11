@@ -1,3 +1,4 @@
+import axios from 'axios';
 import './Words.scss';
 import Word from "../Word/Word";
 import { Component } from 'react';
@@ -39,6 +40,30 @@ class Words extends Component {
         });
     };
 
+    checkWord (guessWord) {
+        let reqObj = {word: guessWord};
+        axios
+            .post ('http://localhost:8080/word/guess', reqObj)
+            .then( (res) => {
+                if (res.data.correct){
+                    this.gameWin(true)
+                    return;
+                }
+                let newWords = [...this.state.words];
+                newWords[this.state.activeWord].statusList = res.data.letters.map(letter => letter.status);
+                console.log(res);
+                let newActiveWord = this.state.activeWord + 1;
+                this.setState( {words: newWords, activeWord: newActiveWord} )
+            })
+            .catch( (err) => {
+                console.log(err)
+            })
+    };
+
+    gameWin (status) {
+
+    }
+
     keydownHandler = (key) => {
         if (key.includes('Key') && this.state.words[this.state.activeWord].word.length < 5) {
             let letter = key.slice(-1);
@@ -57,16 +82,13 @@ class Words extends Component {
         }
         if (key === 'Enter') {
             // send word to API
-
-            
+            this.checkWord(this.state.words[this.state.activeWord].word);
+           
             if (this.state.activeWord === 5) {
-                //lose
+                this.gameWin(false);
                 return;
             } else {
-                let newWords = [...this.state.words];
-                newWords[this.state.activeWord].statusList = []; //set status based on response
-                let newActiveWord = this.state.activeWord + 1;
-                this.setState( {activeWord: newActiveWord, words: newWords} )
+
                 return;
             }
         }
