@@ -1,10 +1,12 @@
 import axios from 'axios';
 import './Words.scss';
 import Word from "../Word/Word";
+import GameEnd from "../GameEnd/GameEnd";
 import { Component } from 'react';
 
 class Words extends Component {
     state = {
+        gameStatus: 'active',
         activeWord: 0,
         words:[
             {
@@ -46,7 +48,11 @@ class Words extends Component {
             .post ('http://localhost:8080/word/guess', reqObj)
             .then( (res) => {
                 if (res.data.correct){
-                    this.gameWin(true)
+                    this.setState ({gameStatus:'You Win!'})
+                    return;
+                }
+                if (!res.data.correct && this.state.activeWord === 5) {
+                    this.setState ({gameStatus:'Game Over'})
                     return;
                 }
                 let newWords = [...this.state.words];
@@ -59,10 +65,6 @@ class Words extends Component {
                 console.log(err)
             })
     };
-
-    gameWin (status) {
-
-    }
 
     keydownHandler = (key) => {
         if (key.includes('Key') && this.state.words[this.state.activeWord].word.length < 5) {
@@ -83,14 +85,6 @@ class Words extends Component {
         if (key === 'Enter') {
             // send word to API
             this.checkWord(this.state.words[this.state.activeWord].word);
-           
-            if (this.state.activeWord === 5) {
-                this.gameWin(false);
-                return;
-            } else {
-
-                return;
-            }
         }
     };
 
@@ -103,6 +97,7 @@ class Words extends Component {
                 <Word word={this.state.words[3]}/>
                 <Word word={this.state.words[4]}/>
                 <Word word={this.state.words[5]}/>
+                <GameEnd status={this.state.gameStatus}/>
             </div>
         );
     };
