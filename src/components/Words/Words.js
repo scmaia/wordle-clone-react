@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { v4 as uuidv4 } from 'uuid'
 import './Words.scss';
 import Word from "../Word/Word";
 import GameEnd from "../GameEnd/GameEnd";
@@ -6,36 +7,7 @@ import Warning from "../Warning/Warning";
 import { Component } from 'react';
 
 class Words extends Component {
-    state = {
-        gameStatus: 'active',
-        activeWord: 0,
-        words:[
-            {
-                word: '',
-                statusList: [],
-            },
-            {
-                word: '',
-                statusList: [],
-            },
-            {
-                word: '',
-                statusList: [],
-            },
-            {
-                word: '',
-                statusList: [],
-            },
-            {
-                word: '',
-                statusList: [],
-            },
-            {
-                word: '',
-                statusList: []
-            }
-        ]
-    };
+    state = this.initialState();
 
     componentDidMount () {
         window.addEventListener('keydown', (event) => {
@@ -43,10 +15,44 @@ class Words extends Component {
         });
     };
 
+    initialState () {
+        return {
+            seed: uuidv4(),
+            gameStatus: 'active',
+            activeWord: 0,
+            words:[
+                {
+                    word: '',
+                    statusList: [],
+                },
+                {
+                    word: '',
+                    statusList: [],
+                },
+                {
+                    word: '',
+                    statusList: [],
+                },
+                {
+                    word: '',
+                    statusList: [],
+                },
+                {
+                    word: '',
+                    statusList: [],
+                },
+                {
+                    word: '',
+                    statusList: []
+                }
+            ]
+        };
+    }
+
     checkWord (guessWord) {
-        let reqObj = {word: guessWord};
+        let reqObj = {word: guessWord, seed: this.state.seed};
         axios
-            .post ('http://localhost:8080/word/guess', reqObj, {withCredentials: true})
+            .post ('https://bstn-wordle-clone-api.herokuapp.com/word/guess', reqObj, {withCredentials: true})
             .then( (res) => {
                 if (res.data.correct){
                     this.setState ({gameStatus:'You Win!'})
@@ -91,6 +97,13 @@ class Words extends Component {
         }
     };
 
+    restartGame = () => {
+        axios
+            .post('https://bstn-wordle-clone-api.herokuapp.com/word/')
+            .then(() => this.setState(this.initialState()))
+            .catch((err) => console.log(err));
+    }
+
     render () {
         return (
             <div className='words'>
@@ -101,7 +114,7 @@ class Words extends Component {
                 <Word word={this.state.words[4]}/>
                 <Word word={this.state.words[5]}/>
                 <Warning status={this.state.gameStatus}/>
-                <GameEnd status={this.state.gameStatus}/>
+                <GameEnd status={this.state.gameStatus} restart={this.restartGame}/>
             </div>
         );
     };

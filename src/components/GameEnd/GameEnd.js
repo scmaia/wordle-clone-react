@@ -1,6 +1,7 @@
 import './GameEnd.scss';
+import restartIcon from '../../assets/images/restart.png'
 
-function GameEnd ( { status } ) {
+function GameEnd ( { status, restart } ) {
     
     const gameClass = (status) => {
         if (status === 'You Win!'){
@@ -15,6 +16,7 @@ function GameEnd ( { status } ) {
     return (
         <div className={`game ${gameClass(status)}`}>
             <p className="game__text">{status}</p>
+            <img src={restartIcon} onClick={restart} className="game__restart"/>
         </div>
     );
 };
