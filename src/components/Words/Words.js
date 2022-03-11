@@ -98,15 +98,17 @@ class Words extends Component {
     };
 
     restartGame = () => {
+        this.setState(this.initialState())
         axios
             .post('https://bstn-wordle-clone-api.herokuapp.com/word/')
-            .then(() => this.setState(this.initialState()))
+            .then((res) => console.log(res))
             .catch((err) => console.log(err));
     }
 
     render () {
         return (
             <div className='words'>
+                <h2>WORDLE, KINDA</h2>
                 <Word word={this.state.words[0]}/>
                 <Word word={this.state.words[1]}/>
                 <Word word={this.state.words[2]}/>
