@@ -2,6 +2,7 @@ import axios from 'axios';
 import './Words.scss';
 import Word from "../Word/Word";
 import GameEnd from "../GameEnd/GameEnd";
+import Warning from "../Warning/Warning";
 import { Component } from 'react';
 
 class Words extends Component {
@@ -63,6 +64,8 @@ class Words extends Component {
             })
             .catch( (err) => {
                 console.log(err)
+                this.setState({gameStatus:'Not in word list'})
+                setTimeout(()=> this.setState({gameStatus:'active'}), 3000)
             })
     };
 
@@ -97,6 +100,7 @@ class Words extends Component {
                 <Word word={this.state.words[3]}/>
                 <Word word={this.state.words[4]}/>
                 <Word word={this.state.words[5]}/>
+                <Warning status={this.state.gameStatus}/>
                 <GameEnd status={this.state.gameStatus}/>
             </div>
         );

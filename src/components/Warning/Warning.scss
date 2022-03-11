@@ -1,0 +1,26 @@
+@use '../../styles/partials/typography' as *;
+@use '../../styles/partials/global' as *;
+@use '../../styles/partials/keyframes' as *;
+
+.warn {
+    width: 357px;
+    height: 40px;
+    background-color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    position: absolute;
+    top: 40px;
+    left: calc(50vw - 178.5px);
+
+    &--visible {
+        animation: show 3s;
+    }
+
+    &__text {
+        color: white;
+        font-size: 20px;
+        margin: 0;
+    }
+}
