@@ -46,7 +46,7 @@ class Words extends Component {
     checkWord (guessWord) {
         let reqObj = {word: guessWord};
         axios
-            .post ('http://localhost:8080/word/guess', reqObj)
+            .post ('http://localhost:8080/word/guess', reqObj, {withCredentials: true})
             .then( (res) => {
                 if (res.data.correct){
                     this.setState ({gameStatus:'You Win!'})
