@@ -52,7 +52,7 @@ class Words extends Component {
     checkWord (guessWord) {
         let reqObj = {word: guessWord, seed: this.state.seed};
         axios
-            .post ('https://bstn-wordle-clone-api.herokuapp.com/word/guess', reqObj, {withCredentials: true})
+            .post ('https://bstn-wordle-clone-api.herokuapp.com/word/guess', reqObj)
             .then( (res) => {
                 if (res.data.correct){
                     this.setState ({gameStatus:'You Win!'})
