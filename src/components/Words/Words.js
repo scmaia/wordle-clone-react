@@ -98,11 +98,7 @@ class Words extends Component {
     };
 
     restartGame = () => {
-        this.setState(this.initialState())
-        axios
-            .post('https://bstn-wordle-clone-api.herokuapp.com/word/')
-            .then((res) => console.log(res))
-            .catch((err) => console.log(err));
+        this.setState(this.initialState());
     }
 
     render () {
